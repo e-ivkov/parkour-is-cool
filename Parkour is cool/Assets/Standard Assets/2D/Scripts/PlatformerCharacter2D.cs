@@ -3,14 +3,22 @@ using UnityEngine;
 
 namespace UnityStandardAssets._2D
 {
+
     public class PlatformerCharacter2D : MonoBehaviour
     {
-        [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-        [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
-        [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
-        [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
-        [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
-        [SerializeField] private float m_RunMultiplier = 1.5f;
+        [SerializeField]
+        private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
+        [SerializeField]
+        private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
+        [Range(0, 1)]
+        [SerializeField]
+        private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
+        [SerializeField]
+        private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
+        [SerializeField]
+        private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+        [SerializeField]
+        private float m_RunMultiplier = 1.5f;
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -20,8 +28,13 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-        private bool InTrick = false;
-        private Collider2D TrickCollider;
+
+        //part about tricks
+        private Collider2D m_TrickCollider; //the Challenge collider of the current trick
+        private float k_MaxTrickCooldown = 0.0f;   //time left just after the trick in milliseconds
+        private float m_TrickCooldown = 0.0f;      //time left to perform another trick for the score boost in milliseconds
+        private int m_TrickMultipliyer = 1;
+        private int m_LevelXP = 0;
 
         private void Awake()
         {
@@ -71,7 +84,7 @@ namespace UnityStandardAssets._2D
             if (m_Grounded || m_AirControl)
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
-                move = (crouch ? move*m_CrouchSpeed : move);
+                move = (crouch ? move * m_CrouchSpeed : move);
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
                 m_Anim.SetFloat("Speed", Mathf.Abs(move));
@@ -79,7 +92,7 @@ namespace UnityStandardAssets._2D
                 // Move the character
                 float speed = m_MaxSpeed;
                 if (run) speed *= m_RunMultiplier;
-                m_Rigidbody2D.velocity = new Vector2(move*speed, m_Rigidbody2D.velocity.y);
+                m_Rigidbody2D.velocity = new Vector2(move * speed, m_Rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight)
@@ -87,7 +100,7 @@ namespace UnityStandardAssets._2D
                     // ... flip the player.
                     Flip();
                 }
-                    // Otherwise if the input is moving the player left and the player is facing right...
+                // Otherwise if the input is moving the player left and the player is facing right...
                 else if (move < 0 && m_FacingRight)
                 {
                     // ... flip the player.
@@ -101,6 +114,14 @@ namespace UnityStandardAssets._2D
                 m_Grounded = false;
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            }
+            if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
+            {
+                m_TrickCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                m_TrickMultipliyer = 1;
             }
         }
 
@@ -118,20 +139,18 @@ namespace UnityStandardAssets._2D
             bool act = Input.GetKey(KeyCode.LeftAlt);
             if (collision.transform.CompareTag("Challenge") && act)
             {
-                InTrick = true;
-                TrickCollider = collision;
+                //here trick user interface system to be placed
+                //PerformTrick();
                 Debug.Log("In trick");
             }
         }
 
-        public void OnTriggerExit2D(Collider2D collision)
+        public void PerformTrick(Trick trick)
         {
-            if(InTrick && TrickCollider == collision)
-            {
-                InTrick = false;
-                TrickCollider = null;
-                Debug.Log("Trick finished");
-            }
+            m_LevelXP += trick.m_XP * m_TrickMultipliyer;
+            m_TrickMultipliyer *= 2;
+            m_Anim.SetTrigger("StartTrick");
+            //TODO: create replacement animator, and actually start the trick animation
         }
 
         private void Flip()
