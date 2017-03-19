@@ -114,6 +114,9 @@ namespace UnityStandardAssets._2D
                 m_Grounded = false;
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                // Calculating time in jump for animation
+                float v = (m_JumpForce / m_Rigidbody2D.mass) * Time.fixedDeltaTime;
+                float t = v / m_Rigidbody2D.gravityScale;
             }
             if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
             {
