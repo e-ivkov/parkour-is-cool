@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: ac6b4d34ffcdb974e86a1345a7d84de3
-timeCreated: 1489913479
+guid: 4a20bfd999462f545816d8ee62b1480b
+timeCreated: 1489912251
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: idle animation_0
-    21300002: idle animation_1
-    21300004: idle animation_2
-    21300006: idle animation_3
-    21300008: idle animation_4
-    21300010: idle animation_5
-    21300012: idle animation_6
-    21300014: idle animation_7
-    21300016: idle animation_8
-    21300018: idle animation_9
-    21300020: idle animation_10
-    21300022: idle animation_11
-    21300024: idle animation_12
-    21300026: idle animation_13
-    21300028: idle animation_14
-    21300030: idle animation_15
-    21300032: idle animation_16
-    21300034: idle animation_17
-    21300036: idle animation_18
-    21300038: idle animation_19
-    21300040: idle animation_20
-    21300042: idle animation_21
+    21300000: final_run_animation_2_0
+    21300002: final_run_animation_2_1
+    21300004: final_run_animation_2_2
+    21300006: final_run_animation_2_3
+    21300008: final_run_animation_2_4
+    21300010: final_run_animation_2_5
+    21300012: final_run_animation_2_6
+    21300014: final_run_animation_2_7
+    21300016: final_run_animation_2_8
+    21300018: final_run_animation_2_9
+    21300020: final_run_animation_2_10
+    21300022: final_run_animation_2_11
+    21300024: final_run_animation_2_12
+    21300026: final_run_animation_2_13
+    21300028: final_run_animation_2_14
+    21300030: final_run_animation_2_15
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -100,137 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle animation_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_1
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_2
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_3
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_4
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_5
-      rect:
-        serializedVersion: 2
-        x: 960
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_6
-      rect:
-        serializedVersion: 2
-        x: 1152
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_7
-      rect:
-        serializedVersion: 2
-        x: 1344
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_8
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_9
-      rect:
-        serializedVersion: 2
-        x: 1728
-        y: 768
-        width: 192
-        height: 384
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: idle animation_10
+      name: final_run_animation_2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -243,7 +107,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_11
+      name: final_run_animation_2_1
       rect:
         serializedVersion: 2
         x: 192
@@ -256,7 +120,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_12
+      name: final_run_animation_2_2
       rect:
         serializedVersion: 2
         x: 384
@@ -269,7 +133,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_13
+      name: final_run_animation_2_3
       rect:
         serializedVersion: 2
         x: 576
@@ -282,7 +146,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_14
+      name: final_run_animation_2_4
       rect:
         serializedVersion: 2
         x: 768
@@ -295,7 +159,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_15
+      name: final_run_animation_2_5
       rect:
         serializedVersion: 2
         x: 960
@@ -308,7 +172,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_16
+      name: final_run_animation_2_6
       rect:
         serializedVersion: 2
         x: 1152
@@ -321,7 +185,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_17
+      name: final_run_animation_2_7
       rect:
         serializedVersion: 2
         x: 1344
@@ -334,7 +198,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_18
+      name: final_run_animation_2_8
       rect:
         serializedVersion: 2
         x: 1536
@@ -347,7 +211,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_19
+      name: final_run_animation_2_9
       rect:
         serializedVersion: 2
         x: 1728
@@ -360,7 +224,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_20
+      name: final_run_animation_2_10
       rect:
         serializedVersion: 2
         x: 0
@@ -373,10 +237,62 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: idle animation_21
+      name: final_run_animation_2_11
       rect:
         serializedVersion: 2
         x: 192
+        y: 0
+        width: 192
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: final_run_animation_2_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 192
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: final_run_animation_2_13
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 192
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: final_run_animation_2_14
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 192
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: final_run_animation_2_15
+      rect:
+        serializedVersion: 2
+        x: 960
         y: 0
         width: 192
         height: 384
