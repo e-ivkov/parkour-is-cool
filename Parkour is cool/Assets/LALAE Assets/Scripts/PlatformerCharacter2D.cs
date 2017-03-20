@@ -1,5 +1,9 @@
 using System;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 
 namespace UnityStandardAssets._2D
 {
@@ -30,11 +34,16 @@ namespace UnityStandardAssets._2D
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         //part about tricks
-        private Collider2D m_TrickCollider; //the Challenge collider of the current trick
-        private float k_MaxTrickCooldown = 0.0f;   //time left just after the trick in milliseconds
-        private float m_TrickCooldown = 0.0f;      //time left to perform another trick for the score boost in milliseconds
-        private int m_TrickMultipliyer = 1;
-        private int m_LevelXP = 0;
+        private Trick m_CurrentTrick;
+        private Collider2D m_TrickCollider;         //the Challenge collider of the current trick
+        private float k_MaxTrickCooldown = 0.0f;    //time left just after the trick in milliseconds
+        private float m_TrickCooldown = 0.0f;       //time left to perform another trick for the score boost in milliseconds
+        private int m_TrickMultipliyer = 1;         //bonus xp multiplier
+        private int m_LevelXP = 0;                  //XP got on this level
+        public bool m_AutoRun;
+        public float m_FlipVelocityThreshold;       //less than what vertical speed enables to flip
+        private float m_Direction;                  //if auto run then detects direction
+        private bool m_InTrick = false;
 
         private void Awake()
         {
@@ -62,6 +71,15 @@ namespace UnityStandardAssets._2D
 
             // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
+            if (m_Anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95 && m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick"))
+            {
+                //m_InTrick = false;
+
+                transform.Translate(m_Direction * m_CurrentTrick.m_AfterPositionVector);
+                SceneView.RepaintAll();
+                m_Anim.CrossFade("Idle", 0.0f);
+
+            }
         }
 
 
@@ -76,11 +94,22 @@ namespace UnityStandardAssets._2D
                     crouch = true;
                 }
             }
-
+            
             // Set whether or not the character is crouching in the animator
             m_Anim.SetBool("Crouch", crouch);*/
 
             //only control the player if grounded or airControl is turned on
+            if (m_AutoRun)
+            {
+                if (Math.Abs(move)>0)
+                {
+                    m_Direction = Math.Sign(move);
+                }
+                else
+                {
+                    move = m_Direction;
+                }
+            }
             if (m_Grounded || m_AirControl)
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
@@ -116,6 +145,13 @@ namespace UnityStandardAssets._2D
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
                 m_Anim.SetTrigger("Jump");
             }
+            float x = CrossPlatformInputManager.GetAxis("Horizontal");
+            if (!m_Grounded && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction &&
+                !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick") && m_Rigidbody2D.velocity.y < m_FlipVelocityThreshold && m_Rigidbody2D.velocity.y>0)
+            {
+                Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
+                PerformTrick(FindTrick(tricks, "Flip"));
+            }
             if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
             {
                 m_TrickCooldown -= Time.deltaTime;
@@ -124,34 +160,51 @@ namespace UnityStandardAssets._2D
             {
                 m_TrickMultipliyer = 1;
             }
+           
         }
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log("Trick possible");
-            if (collision.transform.CompareTag("Challenge"))
+            float x = CrossPlatformInputManager.GetAxis("Horizontal");
+            string coliderTag = collision.transform.tag;
+            //Debug.Log(coliderTag);
+            switch (coliderTag)
             {
-                Debug.Log("Trick possible");
+                case "StandardBlock":
+                    if (m_AutoRun && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction && !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick"))
+                    {
+                        Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
+                        PerformTrick(FindTrick(tricks, "MonkeyVault"));
+                    }
+                    break;
             }
         }
 
         public void OnTriggerStay2D(Collider2D collision)
         {
-            bool act = Input.GetKey(KeyCode.LeftAlt);
-            if (collision.transform.CompareTag("Challenge") && act)
+            
+        }
+
+        public Trick FindTrick(Trick[] tricks, string trickName)
+        {
+            foreach (Trick trick in tricks)
             {
-                //here trick user interface system to be placed
-                //PerformTrick();
-                Debug.Log("In trick");
+                if (trick.name == trickName)
+                {
+                    return trick;
+                }
             }
+            return null;
         }
 
         public void PerformTrick(Trick trick)
         {
             m_LevelXP += trick.m_XP * m_TrickMultipliyer;
             m_TrickMultipliyer *= 2;
+            m_Anim.runtimeAnimatorController = trick.m_TrickAnimator;
+            m_CurrentTrick = trick;
             m_Anim.SetTrigger("StartTrick");
-            //TODO: create replacement animator, and actually start the trick animation
+            //m_InTrick = true;
         }
 
         private void Flip()
