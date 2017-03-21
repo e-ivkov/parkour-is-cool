@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+
 
 namespace UnityStandardAssets._2D
 {
@@ -45,6 +45,9 @@ namespace UnityStandardAssets._2D
         private float m_Direction;                  //if auto run then detects direction
         private bool m_InTrick = false;
 
+        public Trick m_FlipTrick;
+        public Trick m_MonkeyVaultTrick;
+
         private void Awake()
         {
             // Setting up references.
@@ -73,10 +76,10 @@ namespace UnityStandardAssets._2D
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
             if (m_Anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95 && m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick"))
             {
-                //m_InTrick = false;
-
+                m_InTrick = false;
+                Debug.Log("End animation");
                 transform.Translate(m_Direction * m_CurrentTrick.m_AfterPositionVector);
-                SceneView.RepaintAll();
+                //SceneView.RepaintAll();
                 m_Anim.CrossFade("Idle", 0.0f);
 
             }
@@ -147,10 +150,11 @@ namespace UnityStandardAssets._2D
             }
             float x = CrossPlatformInputManager.GetAxis("Horizontal");
             if (!m_Grounded && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction &&
-                !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick") && m_Rigidbody2D.velocity.y < m_FlipVelocityThreshold && m_Rigidbody2D.velocity.y>0)
+                !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick") && m_Rigidbody2D.velocity.y < m_FlipVelocityThreshold && m_Rigidbody2D.velocity.y>0 && !m_InTrick)
             {
-                Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
-                PerformTrick(FindTrick(tricks, "Flip"));
+                //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
+                PerformTrick(m_FlipTrick);
+                Debug.Log("Start flip");
             }
             if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
             {
@@ -173,8 +177,8 @@ namespace UnityStandardAssets._2D
                 case "StandardBlock":
                     if (m_AutoRun && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction && !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick"))
                     {
-                        Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
-                        PerformTrick(FindTrick(tricks, "MonkeyVault"));
+                        //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
+                        PerformTrick(m_MonkeyVaultTrick);
                     }
                     break;
             }
@@ -204,7 +208,7 @@ namespace UnityStandardAssets._2D
             m_Anim.runtimeAnimatorController = trick.m_TrickAnimator;
             m_CurrentTrick = trick;
             m_Anim.SetTrigger("StartTrick");
-            //m_InTrick = true;
+            m_InTrick = true;
         }
 
         private void Flip()
