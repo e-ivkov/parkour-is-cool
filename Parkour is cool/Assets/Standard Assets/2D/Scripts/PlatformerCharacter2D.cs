@@ -40,7 +40,7 @@ namespace UnityStandardAssets._2D
         {
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
-            m_CeilingCheck = transform.Find("CeilingCheck");
+           // m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
@@ -68,7 +68,7 @@ namespace UnityStandardAssets._2D
         public void Move(float move, bool crouch, bool jump, bool run)
         {
             // If crouching, check to see if the character can stand up
-            if (!crouch && m_Anim.GetBool("Crouch"))
+           /* if (!crouch && m_Anim.GetBool("Crouch"))
             {
                 // If the character has a ceiling preventing them from standing up, keep them crouching
                 if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
@@ -78,13 +78,13 @@ namespace UnityStandardAssets._2D
             }
 
             // Set whether or not the character is crouching in the animator
-            m_Anim.SetBool("Crouch", crouch);
+            m_Anim.SetBool("Crouch", crouch);*/
 
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
-                move = (crouch ? move * m_CrouchSpeed : move);
+                //move = (crouch ? move * m_CrouchSpeed : move);
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
                 m_Anim.SetFloat("Speed", Mathf.Abs(move));
@@ -114,6 +114,9 @@ namespace UnityStandardAssets._2D
                 m_Grounded = false;
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                // Calculating time in jump for animation
+                float v = (m_JumpForce / m_Rigidbody2D.mass) * Time.fixedDeltaTime;
+                float t = v / m_Rigidbody2D.gravityScale;
             }
             if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
             {
@@ -145,13 +148,13 @@ namespace UnityStandardAssets._2D
             }
         }
 
-        public void PerformTrick(Trick trick)
+       /* public void PerformTrick(Trick trick)
         {
             m_LevelXP += trick.m_XP * m_TrickMultipliyer;
             m_TrickMultipliyer *= 2;
             m_Anim.SetTrigger("StartTrick");
             //TODO: create replacement animator, and actually start the trick animation
-        }
+        } */
 
         private void Flip()
         {
