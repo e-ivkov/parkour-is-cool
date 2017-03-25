@@ -36,6 +36,14 @@ namespace UnityStandardAssets._2D
         //part about tricks
         private Trick m_CurrentTrick;
         private Collider2D m_TrickCollider;         //the Challenge collider of the current trick
+        public Collider2D TrickCollider
+        {
+            get
+            {
+                return m_TrickCollider;
+            }
+        }
+        private GameObject m_InTrickGameObject;       //GameObject tracking Guy's position in trick
         private float k_MaxTrickCooldown = 0.0f;    //time left just after the trick in milliseconds
         private float m_TrickCooldown = 0.0f;       //time left to perform another trick for the score boost in milliseconds
         private int m_TrickMultipliyer = 1;         //bonus xp multiplier
@@ -44,6 +52,7 @@ namespace UnityStandardAssets._2D
         public float m_FlipVelocityThreshold;       //less than what vertical speed enables to flip
         private float m_Direction;                  //if auto run then detects direction
         private bool m_InTrick = false;
+        private GameObject trickFollow;
 
         public Trick m_FlipTrick;
         public Trick m_MonkeyVaultTrick;
@@ -55,6 +64,7 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            trickFollow = GameObject.Find("TrickFollow");
         }
 
 
@@ -67,7 +77,7 @@ namespace UnityStandardAssets._2D
             Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject != gameObject)
+                if (colliders[i].gameObject != gameObject && colliders[i].gameObject != GameObject.Find("TrickFollow"))
                     m_Grounded = true;
             }
             m_Anim.SetBool("Ground", m_Grounded);
@@ -76,11 +86,7 @@ namespace UnityStandardAssets._2D
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
             if (m_Anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95 && m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick"))
             {
-                m_InTrick = false;
-                Debug.Log("End animation");
-                transform.Translate(m_Direction * m_CurrentTrick.m_AfterPositionVector);
-                //SceneView.RepaintAll();
-                m_Anim.CrossFade("Idle", 0.0f);
+                FinishTrick();
 
             }
         }
@@ -102,7 +108,7 @@ namespace UnityStandardAssets._2D
             m_Anim.SetBool("Crouch", crouch);*/
 
             //only control the player if grounded or airControl is turned on
-            if (m_AutoRun)
+            if (m_AutoRun && !m_InTrick)
             {
                 if (Math.Abs(move)>0)
                 {
@@ -113,7 +119,7 @@ namespace UnityStandardAssets._2D
                     move = m_Direction;
                 }
             }
-            if (m_Grounded || m_AirControl)
+            if ((m_Grounded || m_AirControl) && !m_InTrick)
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
                // move = (crouch ? move * m_CrouchSpeed : move);
@@ -154,7 +160,7 @@ namespace UnityStandardAssets._2D
             {
                 //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
                 PerformTrick(m_FlipTrick);
-                Debug.Log("Start flip");
+                //Debug.Log("Start flip");
             }
             if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
             {
@@ -178,6 +184,8 @@ namespace UnityStandardAssets._2D
                     if (m_AutoRun && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction && !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick"))
                     {
                         //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
+                        m_TrickCollider = collision;
+                        transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
                         PerformTrick(m_MonkeyVaultTrick);
                     }
                     break;
@@ -206,9 +214,41 @@ namespace UnityStandardAssets._2D
             m_LevelXP += trick.m_XP * m_TrickMultipliyer;
             m_TrickMultipliyer *= 2;
             m_Anim.runtimeAnimatorController = trick.m_TrickAnimator;
+            Vector3 scale = trickFollow.transform.localScale;
+            trickFollow.transform.localScale.Set(m_Direction * scale.x, scale.y, scale.z);
+            Animator followAnimator = trickFollow.GetComponent<Animator>();
+            followAnimator.runtimeAnimatorController = trick.m_TrickFollowColliderAnimator;
+            followAnimator.enabled = true;
             m_CurrentTrick = trick;
             m_Anim.SetTrigger("StartTrick");
             m_InTrick = true;
+        }
+
+        public void FinishTrick()
+        {
+            m_InTrick = false;
+            //Debug.Log("End animation");
+            transform.Translate(m_Direction * m_CurrentTrick.m_AfterPositionVector);
+            //SceneView.RepaintAll();
+            m_Anim.CrossFade("Idle", 0.0f);
+            Animator followAnimator = trickFollow.GetComponent<Animator>();
+            followAnimator.Play("follow", -1, 0f);
+            followAnimator.enabled = false;
+            m_TrickCollider = null;
+            transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+
+        public void FailTrick()
+        {
+            m_InTrick = false;
+            BoxCollider2D collider = trickFollow.GetComponent<BoxCollider2D>();
+            transform.Translate(m_Direction * collider.offset);
+            m_Anim.CrossFade("Idle", 0.0f);
+            Animator followAnimator = trickFollow.GetComponent<Animator>();
+            followAnimator.Play("follow", -1, 0f);
+            followAnimator.enabled = false;
+            m_TrickCollider = null;
+            transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
         private void Flip()
