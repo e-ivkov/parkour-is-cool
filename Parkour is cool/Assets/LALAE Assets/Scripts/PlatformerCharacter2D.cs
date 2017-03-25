@@ -48,6 +48,24 @@ namespace UnityStandardAssets._2D
         public Trick m_FlipTrick;
         public Trick m_MonkeyVaultTrick;
 
+        
+
+        //Player-controller input
+        bool m_crouch;
+        bool m_run;
+        float m_move;
+        bool m_jump;
+        bool m_w;
+        bool m_s;
+        bool m_u;
+        bool m_h;
+        bool m_j;
+        bool m_k;
+
+        public CharacterFSM m_FSM;
+
+        
+
         private void Awake()
         {
             // Setting up references.
@@ -55,11 +73,61 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+
+            // FSM 
+
+            
+            m_FSM = new CharacterFSM();
+            m_FSM.Advance(eCharacterState.INIT);
+            m_FSM.AddTransition(eCharacterState.INIT, eCharacterState.IDLE, Idle);
+            m_FSM.AddTransition(eCharacterState.IDLE, eCharacterState.IDLE, Idle);
+            m_FSM.AddTransition(eCharacterState.IDLE, eCharacterState.SLOW_RUN, SlowRun);
+            m_FSM.AddTransition(eCharacterState.SLOW_RUN, eCharacterState.RUN, Run);
+            m_FSM.AddTransition(eCharacterState.SLOW_RUN, eCharacterState.SLOW_RUN, SlowRun);
+            m_FSM.AddTransition(eCharacterState.SLOW_RUN, eCharacterState.IDLE, Idle);
+            m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.RUN, Run);
+            m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.SLOW_RUN, SlowRun);
+            m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.JUMP, Jump);
+            m_FSM.AddTransition(eCharacterState.SLOW_RUN, eCharacterState.JUMP, Jump);
+            m_FSM.AddTransition(eCharacterState.JUMP, eCharacterState.FALL, Fall);
+            m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.SLOW_RUN,Run);
+            
+            
+
+        }
+
+        private void Start()
+        {
+            
         }
 
 
+
+        public void UpdateStateMachine(float hor, bool crouch, bool jump, bool run, bool w, bool s, bool u, bool h, bool j, bool k) {
+            m_crouch = crouch;
+            m_run = run;
+            m_move = hor;
+            m_jump = jump;
+            m_w = w;
+            m_s = s;
+            m_u = u;
+            m_h = h;
+            m_j = j;
+            m_k = k;
+            
+            m_FSM.Advance(eCharacterState.IDLE);
+            
+            if (m_AutoRun) m_FSM.Advance(eCharacterState.SLOW_RUN);
+            if (run) m_FSM.Advance(eCharacterState.RUN);
+            if (m_jump) m_FSM.Advance(eCharacterState.JUMP);
+            if (m_Rigidbody2D.velocity.y <= 0) m_FSM.Advance(eCharacterState.FALL);
+            
+
+        }
         private void FixedUpdate()
         {
+
+            
             m_Grounded = false;
 
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -86,61 +154,97 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool jump, bool run)
-        {
-            // If crouching, check to see if the character can stand up
-            /*if (!crouch && m_Anim.GetBool("Crouch"))
-            {
-                // If the character has a ceiling preventing them from standing up, keep them crouching
-                if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
-                {
-                    crouch = true;
-                }
-            }
-            
-            // Set whether or not the character is crouching in the animator
-            m_Anim.SetBool("Crouch", crouch);*/
 
-            //only control the player if grounded or airControl is turned on
+        void Idle() {
+            
+        }
+
+        void Run() {
+            
             if (m_AutoRun)
             {
-                if (Math.Abs(move)>0)
+                if (Math.Abs(m_move) > 0)
                 {
-                    m_Direction = Math.Sign(move);
+                    m_Direction = Math.Sign(m_move);
                 }
                 else
                 {
-                    move = m_Direction;
+                    m_move = m_Direction;
                 }
             }
             if (m_Grounded || m_AirControl)
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
-               // move = (crouch ? move * m_CrouchSpeed : move);
+                // move = (crouch ? move * m_CrouchSpeed : move);
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
-                m_Anim.SetFloat("Speed", Mathf.Abs(move));
-                m_Anim.SetBool("Run", run);
+                m_Anim.SetFloat("Speed", Mathf.Abs(m_move));
+                m_Anim.SetBool("Run", m_run);
                 // Move the character
                 float speed = m_MaxSpeed;
-                if (run) speed *= m_RunMultiplier;
-                m_Rigidbody2D.velocity = new Vector2(move * speed, m_Rigidbody2D.velocity.y);
+                if (m_run) speed *= m_RunMultiplier;
+                m_Rigidbody2D.velocity = new Vector2(m_move * speed, m_Rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
-                if (move > 0 && !m_FacingRight)
+                if (m_move > 0 && !m_FacingRight)
                 {
                     // ... flip the player.
                     Flip();
                 }
                 // Otherwise if the input is moving the player left and the player is facing right...
-                else if (move < 0 && m_FacingRight)
+                else if (m_move < 0 && m_FacingRight)
                 {
                     // ... flip the player.
                     Flip();
                 }
             }
+        }
+        void SlowRun()
+        {
+            Debug.Log("SLOW RUN");
+            if (m_AutoRun)
+            {
+                if (Math.Abs(m_move) > 0)
+                {
+                    m_Direction = Math.Sign(m_move);
+                }
+                else
+                {
+                    m_move = m_Direction;
+                }
+            }
+            if (m_Grounded || m_AirControl)
+            {
+                // Reduce the speed if crouching by the crouchSpeed multiplier
+                // move = (crouch ? move * m_CrouchSpeed : move);
+
+                // The Speed animator parameter is set to the absolute value of the horizontal input.
+                m_Anim.SetFloat("Speed", Mathf.Abs(m_move));
+                m_Anim.SetBool("Run", m_run);
+                // Move the character
+                float speed = m_MaxSpeed;
+                if (m_run) speed *= m_RunMultiplier;
+                m_Rigidbody2D.velocity = new Vector2(m_move * speed, m_Rigidbody2D.velocity.y);
+
+                // If the input is moving the player right and the player is facing left...
+                if (m_move > 0 && !m_FacingRight)
+                {
+                    // ... flip the player.
+                    Flip();
+                }
+                // Otherwise if the input is moving the player left and the player is facing right...
+                else if (m_move < 0 && m_FacingRight)
+                {
+                    // ... flip the player.
+                    Flip();
+                }
+            }
+            
+        }
+
+        void Jump() {
             // If the player should jump...
-            if (m_Grounded && jump && m_Anim.GetBool("Ground"))
+            if (m_Grounded && m_jump && m_Anim.GetBool("Ground"))
             {
                 // Add a vertical force to the player.
                 m_Grounded = false;
@@ -148,24 +252,98 @@ namespace UnityStandardAssets._2D
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
                 m_Anim.SetTrigger("Jump");
             }
-            float x = CrossPlatformInputManager.GetAxis("Horizontal");
-            if (!m_Grounded && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction &&
-                !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick") && m_Rigidbody2D.velocity.y < m_FlipVelocityThreshold && m_Rigidbody2D.velocity.y>0 && !m_InTrick)
-            {
-                //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
-                PerformTrick(m_FlipTrick);
-                Debug.Log("Start flip");
-            }
-            if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
-            {
-                m_TrickCooldown -= Time.deltaTime;
-            }
-            else
-            {
-                m_TrickMultipliyer = 1;
-            }
-           
+          
         }
+
+        void Fall() {
+            Debug.Log("FALL");
+        }
+
+        void Trick() {
+
+        }
+
+
+        //public void Move(float move, bool crouch, bool jump, bool run)
+        //{
+        //    // If crouching, check to see if the character can stand up
+        //    /*if (!crouch && m_Anim.GetBool("Crouch"))
+        //    {
+        //        // If the character has a ceiling preventing them from standing up, keep them crouching
+        //        if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
+        //        {
+        //            crouch = true;
+        //        }
+        //    }
+            
+        //    // Set whether or not the character is crouching in the animator
+        //    m_Anim.SetBool("Crouch", crouch);*/
+
+        //    //only control the player if grounded or airControl is turned on
+        //    if (m_AutoRun)
+        //    {
+        //        if (Math.Abs(move) > 0)
+        //        {
+        //            m_Direction = Math.Sign(move);
+        //        }
+        //        else
+        //        {
+        //            move = m_Direction;
+        //        }
+        //    }
+        //    if (m_Grounded || m_AirControl)
+        //    {
+        //        // Reduce the speed if crouching by the crouchSpeed multiplier
+        //        // move = (crouch ? move * m_CrouchSpeed : move);
+
+        //        // The Speed animator parameter is set to the absolute value of the horizontal input.
+        //        m_Anim.SetFloat("Speed", Mathf.Abs(move));
+        //        m_Anim.SetBool("Run", run);
+        //        // Move the character
+        //        float speed = m_MaxSpeed;
+        //        if (run) speed *= m_RunMultiplier;
+        //        m_Rigidbody2D.velocity = new Vector2(move * speed, m_Rigidbody2D.velocity.y);
+
+        //        // If the input is moving the player right and the player is facing left...
+        //        if (move > 0 && !m_FacingRight)
+        //        {
+        //            // ... flip the player.
+        //            Flip();
+        //        }
+        //        // Otherwise if the input is moving the player left and the player is facing right...
+        //        else if (move < 0 && m_FacingRight)
+        //        {
+        //            // ... flip the player.
+        //            Flip();
+        //        }
+        //    }
+        //    // If the player should jump...
+        //    if (m_Grounded && jump && m_Anim.GetBool("Ground"))
+        //    {
+        //        // Add a vertical force to the player.
+        //        m_Grounded = false;
+        //        m_Anim.SetBool("Ground", false);
+        //        m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+        //        m_Anim.SetTrigger("Jump");
+        //    }
+        //    float x = CrossPlatformInputManager.GetAxis("Horizontal");
+        //    if (!m_Grounded && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction &&
+        //        !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick") && m_Rigidbody2D.velocity.y < m_FlipVelocityThreshold && m_Rigidbody2D.velocity.y > 0 && !m_InTrick)
+        //    {
+        //        //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
+        //        PerformTrick(m_FlipTrick);
+        //        Debug.Log("Start flip");
+        //    }
+        //    if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
+        //    {
+        //        m_TrickCooldown -= Time.deltaTime;
+        //    }
+        //    else
+        //    {
+        //        m_TrickMultipliyer = 1;
+        //    }
+
+        //}
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
@@ -186,7 +364,7 @@ namespace UnityStandardAssets._2D
 
         public void OnTriggerStay2D(Collider2D collision)
         {
-            
+
         }
 
         public Trick FindTrick(Trick[] tricks, string trickName)
