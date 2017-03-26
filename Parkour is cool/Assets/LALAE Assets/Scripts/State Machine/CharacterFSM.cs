@@ -12,6 +12,7 @@ namespace UnityStandardAssets._2D
         RUN,
         JUMP,
         FALL,
+        AIR_TRICK,
         TRICK,
         FAIL
 
