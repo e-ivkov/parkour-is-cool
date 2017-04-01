@@ -484,7 +484,7 @@ namespace UnityStandardAssets._2D
             Animator followAnimator = trickFollow.GetComponent<Animator>();
             followAnimator.Play("follow", -1, 0f);
             followAnimator.enabled = false;
-
+            m_TrickMultipliyer = 1;
             m_TrickCollider = null;
             transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             

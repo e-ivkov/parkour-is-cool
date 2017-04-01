@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace UnityStandardAssets._2D
 {
-    public class FinishFail : StateMachineBehaviour
+    public class FinishTrick : StateMachineBehaviour
     {
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -15,21 +15,6 @@ namespace UnityStandardAssets._2D
         //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         //
         //}
-        public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
-        {
-            if (animatorStateInfo.normalizedTime > 0.95)
-            {
-                animator.transform.GetComponent<PlatformerCharacter2D>().resetTriggers();
-                animator.CrossFade("Fall", 0);
-                
-            }
-
-
-        }
-        public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
-        {
-            animator.transform.GetComponent<PlatformerCharacter2D>().m_FSM.Advance(eCharacterState.FALL);
-        }
 
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -40,10 +25,33 @@ namespace UnityStandardAssets._2D
         //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         //
         //}
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+        {
+            if (animatorStateInfo.normalizedTime > 0.95)
+            {
+                animator.transform.GetComponent<PlatformerCharacter2D>().resetTriggers();
+                animator.transform.GetComponent<PlatformerCharacter2D>().FinishTrick();
+                animator.CrossFade("Fall",0);
+               
+            }
 
-        // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
-        //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        //
-        //}
+
+        }
+        public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+        {
+            
+           
+
+
+        }
+
+
+
+
     }
+    // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
+    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    //
+    //}
 }
+
