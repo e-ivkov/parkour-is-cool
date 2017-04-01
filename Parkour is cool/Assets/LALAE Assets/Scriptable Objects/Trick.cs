@@ -7,7 +7,8 @@ namespace UnityStandardAssets._2D
     {
 
         public int m_XP;
-        public RuntimeAnimatorController m_TrickAnimator;
+        public int m_index;
+       // public RuntimeAnimatorController m_TrickAnimator;
         public RuntimeAnimatorController m_TrickFollowColliderAnimator;
         public Vector2 m_AfterPositionVector;
     }
