@@ -12,8 +12,11 @@ namespace UnityStandardAssets._2D
         RUN,
         JUMP,
         FALL,
+        AIR_TRICK,
         TRICK,
-        FAIL
+        FAIL,
+        AIR_FAIL,
+        STAND_UP
 
     }
     public class CharacterFSM: FiniteStateMachine<eCharacterState>

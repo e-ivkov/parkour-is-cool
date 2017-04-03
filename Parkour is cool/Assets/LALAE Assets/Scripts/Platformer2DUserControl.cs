@@ -42,8 +42,10 @@ namespace UnityStandardAssets._2D
             bool h = Input.GetKey(KeyCode.H);
             bool j = Input.GetKey(KeyCode.J);
             bool k = Input.GetKey(KeyCode.K);
+            bool a = Input.GetKey(KeyCode.A);
+            bool d = Input.GetKey(KeyCode.D);
             // Pass all parameters to the character control script.
-            m_Character.UpdateStateMachine(hor,crouch, m_Jump, run, w,  s,  u,  h,  j, k);
+            m_Character.UpdateStateMachine(hor,crouch, m_Jump, run, w,  s, a, d, u,  h,  j, k);
             m_Jump = false;
         }
     }

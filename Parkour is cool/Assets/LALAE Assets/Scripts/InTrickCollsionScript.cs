@@ -25,8 +25,7 @@ namespace UnityStandardAssets._2D
             PlatformerCharacter2D userControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlatformerCharacter2D>();
             if (userControl.TrickCollider != null && userControl.TrickCollider != collision)
             {
-                Debug.Log("Fall");
-                userControl.FailTrick();
+                userControl.m_fail = true;
             }
         }
     }
