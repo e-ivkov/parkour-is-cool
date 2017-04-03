@@ -27,20 +27,19 @@ namespace UnityStandardAssets._2D
         //}
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
         {
-            if (animatorStateInfo.normalizedTime > 0.95)
-            {
-                animator.transform.GetComponent<PlatformerCharacter2D>().resetTriggers();
-                animator.transform.GetComponent<PlatformerCharacter2D>().FinishTrick();
-                animator.CrossFade("Fall",0);
-               
-            }
+            
 
 
         }
         public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
         {
+
+            animator.transform.GetComponent<PlatformerCharacter2D>().resetTriggers();
+            if (animatorStateInfo.normalizedTime > 0.99) {
+                animator.transform.GetComponent<PlatformerCharacter2D>().FinishTrick();
+            }
             
-           
+            
 
 
         }

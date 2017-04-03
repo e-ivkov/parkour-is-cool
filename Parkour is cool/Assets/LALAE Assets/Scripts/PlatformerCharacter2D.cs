@@ -29,7 +29,7 @@ namespace UnityStandardAssets._2D
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .4f; // Radius of the overlap circle to determine if grounded
-        private bool m_Grounded;            // Whether or not the player is grounded.
+        public bool m_Grounded;            // Whether or not the player is grounded.
         private Transform m_CeilingCheck;   // A position marking where to check for ceilings
         const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
         private Animator m_Anim;            // Reference to the player's animator component.
@@ -62,7 +62,7 @@ namespace UnityStandardAssets._2D
 
         //For state machine
         bool m_doTrick = false;
-       public bool m_fail = false;
+        public bool m_fail = false;
 
         //Player-controller input
         bool m_crouch;
@@ -113,26 +113,40 @@ namespace UnityStandardAssets._2D
             m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.SLOW_RUN, SlowRun);
             m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.JUMP, Jump);
             m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.FALL, Fall);
+            m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.FAIL, Fail);
             m_FSM.AddTransition(eCharacterState.RUN, eCharacterState.TRICK, Trick);
+
             //Jump
             m_FSM.AddTransition(eCharacterState.JUMP, eCharacterState.FALL, Fall);
             m_FSM.AddTransition(eCharacterState.JUMP, eCharacterState.AIR_TRICK, AirTrick);
             m_FSM.AddTransition(eCharacterState.JUMP, eCharacterState.FALL, Fall);
+            m_FSM.AddTransition(eCharacterState.JUMP, eCharacterState.AIR_FAIL, AirFail);
             //Fall
             m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.SLOW_RUN, SlowRun);
             m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.FALL, Fall);
             m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.RUN, FastRun);
+            m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.AIR_FAIL, AirFail);
             //Trick
-            
-       
+
+
             m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.FALL, Fall);
             m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.FAIL, Fail);
-           
+
             //Air trick
+            m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.AIR_FAIL, AirFail);
             m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.FALL, Fall);
 
             //Fail
-            m_FSM.AddTransition(eCharacterState.FAIL, eCharacterState.FALL, Fall);   
+            m_FSM.AddTransition(eCharacterState.FAIL, eCharacterState.FALL, Fall);
+
+
+            //Air Fail
+            m_FSM.AddTransition(eCharacterState.AIR_FAIL, eCharacterState.STAND_UP, StandUp);
+
+
+            //Stand Up
+
+            m_FSM.AddTransition(eCharacterState.STAND_UP, eCharacterState.IDLE, Idle);
 
 
 
@@ -169,16 +183,16 @@ namespace UnityStandardAssets._2D
 
             if (m_Grounded)
             {
-                
+
                 if (!m_AutoRun) m_FSM.Advance(eCharacterState.IDLE);
                 if (m_AutoRun && !m_shift) m_FSM.Advance(eCharacterState.SLOW_RUN);
-                if (m_shift ) m_FSM.Advance(eCharacterState.RUN);
+                if (m_shift) m_FSM.Advance(eCharacterState.RUN);
                 if (m_jump) m_FSM.Advance(eCharacterState.JUMP);
                 if (m_fail) m_FSM.Advance(eCharacterState.FAIL);
             }
             else
             {
-                
+
                 if (m_airTrick) m_FSM.Advance(eCharacterState.AIR_TRICK);
                 if (m_Rigidbody2D.velocity.y < 0) m_FSM.Advance(eCharacterState.FALL);
             }
@@ -194,8 +208,8 @@ namespace UnityStandardAssets._2D
         }
         private void FixedUpdate()
         {
-           // Misc_ClearLogConsole();
-           if (m_FSM.GetPrevState().ToString() == m_FSM.GetPrevState().ToString())
+            // Misc_ClearLogConsole();
+            if (m_FSM.GetPrevState().ToString() == m_FSM.GetPrevState().ToString())
                 Debug.Log(m_FSM.GetState().ToString());
             m_Grounded = false;
 
@@ -205,11 +219,6 @@ namespace UnityStandardAssets._2D
                 if (colliders[i].gameObject != gameObject && colliders[i].gameObject != GameObject.Find("TrickFollow"))
                     m_Grounded = true;
             }
-            if (m_Anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95 && m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick"))
-            {
-                FinishTrick();
-
-            } 
 
 
         }
@@ -218,6 +227,7 @@ namespace UnityStandardAssets._2D
 
         void Idle()
         {
+            m_AutoRun = false;
             resetTriggers();
             m_Anim.SetTrigger("Idle");
             if (Math.Abs(m_move) > 0) m_AutoRun = true;
@@ -248,7 +258,7 @@ namespace UnityStandardAssets._2D
             // The Speed animator parameter is set to the absolute value of the horizontal input.
             resetTriggers();
             m_Anim.SetTrigger("FastRun");
-            
+
             // Move the character
             float speed = m_MaxSpeed;
             speed *= m_RunMultiplier;
@@ -301,7 +311,7 @@ namespace UnityStandardAssets._2D
             resetTriggers();
             m_Anim.SetTrigger("SlowRun");
 
-            
+
             m_Rigidbody2D.velocity = new Vector2(m_move * speed, m_Rigidbody2D.velocity.y);
 
             // If the input is moving the player right and the player is facing left...
@@ -319,11 +329,15 @@ namespace UnityStandardAssets._2D
 
 
         }
-        String[] triggers = { "FastRun", "SlowRun", "Fall", "Idle", "Jump", "StartTrick","Monkey"};
-        public void resetTriggers() {
-            foreach (String trigger in triggers) {
+        String[] triggers = { "FastRun", "SlowRun", "Fall", "Idle", "Jump", "StartTrick", "Monkey", "AirFail" };
+
+
+        public void resetTriggers()
+        {
+            foreach (String trigger in triggers)
+            {
                 m_Anim.ResetTrigger(trigger);
-                    }
+            }
         }
 
         void Jump()
@@ -342,21 +356,20 @@ namespace UnityStandardAssets._2D
 
         void Fall()
         {
-               //TO DO add FAIL STATE       
-           
+            //TO DO add FAIL STATE       
+
 
 
             resetTriggers();
             m_Anim.SetTrigger("Fall");
-            
+
         }
 
         void AirTrick()
         {
-            Debug.Log("AIR TRICK");
+
             float x = CrossPlatformInputManager.GetAxis("Horizontal");
-            if (!m_Grounded && Math.Abs(x) > 0 && Math.Sign(x) == m_Direction &&
-                !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Trick") && m_Rigidbody2D.velocity.y < m_FlipVelocityThreshold && m_Rigidbody2D.velocity.y > 0 && !m_InTrick)
+            if (Math.Abs(x) > 0 && Math.Sign(x) == m_Direction && !m_InTrick)
             {
                 //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
                 PerformTrick(m_FlipTrick);
@@ -371,9 +384,14 @@ namespace UnityStandardAssets._2D
                 m_TrickMultipliyer = 1;
             }
         }
+
+
+
+
+
         void Trick()
         {
-            
+
             float x = CrossPlatformInputManager.GetAxis("Horizontal");
 
             string coliderTag = m_TrickCollider.transform.tag;
@@ -394,14 +412,34 @@ namespace UnityStandardAssets._2D
                         m_fail = true;
                     }
                     break;
+                default:
+                    m_fail = true;
+                    break;
             }
         }
 
-        void Fail() {
+        void Fail()
+        {
+
             m_fail = false;
             resetTriggers();
             FailTrick();
-            m_Anim.CrossFade("FailTrick",0);
+            m_Anim.CrossFade("FailTrick", 0);
+        }
+
+        void AirFail()
+        {
+
+            resetTriggers();
+
+            m_Anim.SetTrigger("AirFail");
+            m_TrickMultipliyer = 1;
+
+        }
+
+        void StandUp()
+        {
+            m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
 
@@ -412,8 +450,15 @@ namespace UnityStandardAssets._2D
                 m_TrickCollider = collision;
                 m_FSM.Advance(eCharacterState.TRICK);
             }
-                
-            
+
+
+
+        }
+
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+
+            m_FSM.Advance(eCharacterState.AIR_FAIL);
 
         }
 
@@ -433,8 +478,8 @@ namespace UnityStandardAssets._2D
 
         public void PerformTrick(Trick trick)
         {
-            
-            
+
+
             Debug.Log("StartTRick");
             //m_Anim.runtimeAnimatorController = trick.m_TrickAnimator;
             Vector3 scale = trickFollow.transform.localScale;
@@ -446,10 +491,10 @@ namespace UnityStandardAssets._2D
             //resetTriggers();
             resetTriggers();
             m_Anim.SetTrigger("StartTrick");
-            m_Anim.SetInteger("TrickIndex",trick.m_index);
+            m_Anim.SetInteger("TrickIndex", trick.m_index);
             m_InTrick = true;
 
-            
+
         }
 
         public void FinishTrick()
@@ -461,9 +506,9 @@ namespace UnityStandardAssets._2D
             //Debug.Log("End animation");
             transform.Translate(m_Direction * m_CurrentTrick.m_AfterPositionVector);
             resetTriggers();
-            
+
             //SceneView.RepaintAll();
-            
+
             Animator followAnimator = trickFollow.GetComponent<Animator>();
             followAnimator.Play("follow", -1, 0f);
             followAnimator.enabled = false;
@@ -471,7 +516,7 @@ namespace UnityStandardAssets._2D
             transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
             m_FSM.Advance(eCharacterState.FALL);
-           
+
         }
 
         public void FailTrick()
@@ -480,14 +525,14 @@ namespace UnityStandardAssets._2D
             //m_fail = false;
             m_InTrick = false;
             BoxCollider2D collider = trickFollow.GetComponent<BoxCollider2D>();
-            transform.Translate(m_Direction * collider.offset);       
+            transform.Translate(m_Direction * collider.offset);
             Animator followAnimator = trickFollow.GetComponent<Animator>();
             followAnimator.Play("follow", -1, 0f);
             followAnimator.enabled = false;
             m_TrickMultipliyer = 1;
             m_TrickCollider = null;
             transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-            
+
 
         }
 
