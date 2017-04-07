@@ -1,29 +1,32 @@
 fileFormatVersion: 2
-guid: c8b04ddcfc581f345be208b1923eba86
-timeCreated: 1491578570
+guid: bddb61f72fdb38e449ede5b33503bb97
+timeCreated: 1491579340
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: air_fail_0
-    21300002: air_fail_1
-    21300004: air_fail_2
-    21300006: air_fail_3
-    21300008: air_fail_4
-    21300010: air_fail_5
-    21300012: air_fail_6
-    21300014: air_fail_7
-    21300016: air_fail_8
-    21300018: air_fail_9
-    21300020: air_fail_10
-    21300022: air_fail_11
-    21300024: air_fail_12
-    21300026: air_fail_13
-    21300028: air_fail_14
-    21300030: air_fail_15
-    21300032: air_fail_16
-    21300034: air_fail_17
-    21300036: air_fail_18
-    21300038: air_fail_19
+    21300000: wall_run_0
+    21300002: wall_run_1
+    21300004: wall_run_2
+    21300006: wall_run_3
+    21300008: wall_run_4
+    21300010: wall_run_5
+    21300012: wall_run_6
+    21300014: wall_run_7
+    21300016: wall_run_8
+    21300018: wall_run_9
+    21300020: wall_run_10
+    21300022: wall_run_11
+    21300024: wall_run_12
+    21300026: wall_run_13
+    21300028: wall_run_14
+    21300030: wall_run_15
+    21300032: wall_run_16
+    21300034: wall_run_17
+    21300036: wall_run_18
+    21300038: wall_run_19
+    21300040: wall_run_20
+    21300042: wall_run_21
+    21300044: wall_run_22
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -98,262 +101,301 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: air_fail_0
+      name: wall_run_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_1
+      name: wall_run_1
       rect:
         serializedVersion: 2
-        x: 348
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 384
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_2
+      name: wall_run_2
       rect:
         serializedVersion: 2
-        x: 696
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 768
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_3
+      name: wall_run_3
       rect:
         serializedVersion: 2
-        x: 1044
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1152
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_4
+      name: wall_run_4
       rect:
         serializedVersion: 2
-        x: 1392
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1536
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_5
+      name: wall_run_5
       rect:
         serializedVersion: 2
-        x: 1740
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1915
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_6
+      name: wall_run_6
       rect:
         serializedVersion: 2
-        x: 2088
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2304
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_7
+      name: wall_run_7
       rect:
         serializedVersion: 2
-        x: 2436
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2688
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_8
+      name: wall_run_8
       rect:
         serializedVersion: 2
-        x: 2784
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 3078
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_9
+      name: wall_run_9
       rect:
         serializedVersion: 2
-        x: 3132
-        y: 444
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 3456
+        y: 1536
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_10
+      name: wall_run_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 384
+        height: 764
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 774
+        width: 384
+        height: 757
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_12
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 774
+        width: 384
+        height: 760
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_13
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 792
+        width: 368
+        height: 738
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 13, y: 4, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_14
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 792
+        width: 406
+        height: 744
+      alignment: 9
+      pivot: {x: 0.5, y: 0.06}
+      border: {x: 0, y: 21, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_15
+      rect:
+        serializedVersion: 2
+        x: 1927
+        y: 792
+        width: 372
+        height: 746
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_16
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 774
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_17
+      rect:
+        serializedVersion: 2
+        x: 2688
+        y: 762
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_18
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 768
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_19
+      rect:
+        serializedVersion: 2
+        x: 3456
+        y: 768
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_run_20
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 343
-        height: 434
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 386
+        height: 763
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_11
+      name: wall_run_21
       rect:
         serializedVersion: 2
-        x: 348
+        x: 384
         y: 0
-        width: 349
-        height: 431
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_12
+      name: wall_run_22
       rect:
         serializedVersion: 2
-        x: 696
+        x: 774
         y: 0
-        width: 348
-        height: 433
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_13
-      rect:
-        serializedVersion: 2
-        x: 1044
-        y: 0
-        width: 348
-        height: 436
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_14
-      rect:
-        serializedVersion: 2
-        x: 1392
-        y: 0
-        width: 341
-        height: 428
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_15
-      rect:
-        serializedVersion: 2
-        x: 1743
-        y: 0
-        width: 344
-        height: 431
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_16
-      rect:
-        serializedVersion: 2
-        x: 2088
-        y: 0
-        width: 343
-        height: 421
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_17
-      rect:
-        serializedVersion: 2
-        x: 2436
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_18
-      rect:
-        serializedVersion: 2
-        x: 2784
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_19
-      rect:
-        serializedVersion: 2
-        x: 3132
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 384
+        height: 768
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

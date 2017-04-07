@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 using System.Reflection;
 
 namespace UnityStandardAssets._2D
@@ -38,6 +38,12 @@ namespace UnityStandardAssets._2D
 
         //part about tricks
         private Trick m_CurrentTrick;
+        public Trick CurrentTrick {
+            get {
+                return m_CurrentTrick;
+
+            }
+        }
         private Collider2D m_TrickCollider;         //the Challenge collider of the current trick
         public Collider2D TrickCollider
         {
@@ -59,6 +65,7 @@ namespace UnityStandardAssets._2D
 
         public Trick m_FlipTrick;
         public Trick m_MonkeyVaultTrick;
+        public Trick m_WallRun;
 
         //For state machine
         bool m_doTrick = false;
@@ -131,6 +138,7 @@ namespace UnityStandardAssets._2D
 
             m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.FALL, Fall);
             m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.FAIL, Fail);
+           
 
             //Air trick
             m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.AIR_FAIL, AirFail);
@@ -148,8 +156,12 @@ namespace UnityStandardAssets._2D
 
             m_FSM.AddTransition(eCharacterState.STAND_UP, eCharacterState.IDLE, Idle);
 
-
-
+            //EXTRA POINTS TRICKS
+            m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.TRICK, Trick);
+            m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.AIR_TRICK, AirTrick);
+            m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.TRICK, Trick);
+            m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.AIR_TRICK, AirTrick);
+            // 
 
             trickFollow = GameObject.Find("TrickFollow");
 
@@ -199,13 +211,13 @@ namespace UnityStandardAssets._2D
 
         }
 
-        public static void Misc_ClearLogConsole()
-        {
-            Assembly assembly = Assembly.GetAssembly(typeof(SceneView));
-            Type logEntries = assembly.GetType("UnityEditorInternal.LogEntries");
-            MethodInfo clearConsoleMethod = logEntries.GetMethod("Clear");
-            clearConsoleMethod.Invoke(new object(), null);
-        }
+        //public static void Misc_ClearLogConsole()
+        //{
+        //    Assembly assembly = Assembly.GetAssembly(typeof(SceneView));
+        //    Type logEntries = assembly.GetType("UnityEditorInternal.LogEntries");
+        //    MethodInfo clearConsoleMethod = logEntries.GetMethod("Clear");
+        //    clearConsoleMethod.Invoke(new object(), null);
+        //}
         private void FixedUpdate()
         {
             // Misc_ClearLogConsole();
@@ -369,12 +381,15 @@ namespace UnityStandardAssets._2D
         {
 
             float x = CrossPlatformInputManager.GetAxis("Horizontal");
+            float y = CrossPlatformInputManager.GetAxis("Vertical");
             if (Math.Abs(x) > 0 && Math.Sign(x) == m_Direction && !m_InTrick)
             {
                 //Trick[] tricks = Resources.FindObjectsOfTypeAll<Trick>();
                 PerformTrick(m_FlipTrick);
                 //Debug.Log("Start flip");
             }
+           
+        
             if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
             {
                 m_TrickCooldown -= Time.deltaTime;
@@ -393,7 +408,7 @@ namespace UnityStandardAssets._2D
         {
 
             float x = CrossPlatformInputManager.GetAxis("Horizontal");
-
+            float y = CrossPlatformInputManager.GetAxis("Vertical");
             string coliderTag = m_TrickCollider.transform.tag;
             //Debug.Log(coliderTag);
             switch (coliderTag)
@@ -412,6 +427,15 @@ namespace UnityStandardAssets._2D
                         m_fail = true;
                     }
                     break;
+                case "Wall":
+                    if (y > 0)
+                    {
+                        PerformTrick(m_WallRun);
+                    }
+                    else
+                        m_fail = true;
+                    break;
+
                 default:
                     m_fail = true;
                     break;
@@ -449,6 +473,7 @@ namespace UnityStandardAssets._2D
             {
                 m_TrickCollider = collision;
                 m_FSM.Advance(eCharacterState.TRICK);
+                
             }
 
 
@@ -484,7 +509,7 @@ namespace UnityStandardAssets._2D
             //m_Anim.runtimeAnimatorController = trick.m_TrickAnimator;
             Vector3 scale = trickFollow.transform.localScale;
             trickFollow.transform.localScale.Set(m_Direction * scale.x, scale.y, scale.z);
-            Animator followAnimator = trickFollow.GetComponent<Animator>();
+                Animator followAnimator = trickFollow.GetComponent<Animator>();
             followAnimator.runtimeAnimatorController = trick.m_TrickFollowColliderAnimator;
             followAnimator.enabled = true;
             m_CurrentTrick = trick;
