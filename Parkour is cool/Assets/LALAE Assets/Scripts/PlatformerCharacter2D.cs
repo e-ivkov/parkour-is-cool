@@ -59,13 +59,15 @@ namespace UnityStandardAssets._2D
         private int m_LevelXP = 0;                  //XP got on this level
         public bool m_AutoRun;
         public float m_FlipVelocityThreshold;       //less than what vertical speed enables to flip
-        private float m_Direction;                  //if auto run then detects direction
+        public float m_Direction;                  //if auto run then detects direction
         public bool m_InTrick = false;
         private GameObject trickFollow;
 
         public Trick m_FlipTrick;
         public Trick m_MonkeyVaultTrick;
         public Trick m_WallRun;
+        public Trick m_WallFlip;
+        public Trick m_DashTrick;
 
         //For state machine
         bool m_doTrick = false;
@@ -429,6 +431,11 @@ namespace UnityStandardAssets._2D
                         transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
                         PerformTrick(m_MonkeyVaultTrick);
                     }
+                    else if ((m_Direction == 1 && m_k) || (m_Direction == -1 && m_h)) {
+
+                        transform.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                        PerformTrick(m_DashTrick);
+                    }
                     else
                     {
                         //TO DO FAIL ANIMATION
@@ -440,6 +447,7 @@ namespace UnityStandardAssets._2D
                     {
                         PerformTrick(m_WallRun);
                     }
+                    else if (m_h) PerformTrick(m_WallFlip);
                     else
                         m_fail = true;
                     break;

@@ -1,29 +1,24 @@
 fileFormatVersion: 2
-guid: c8b04ddcfc581f345be208b1923eba86
-timeCreated: 1491578570
+guid: 638ebe51cdc3b274ba4275e759f19674
+timeCreated: 1491755263
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: air_fail_0
-    21300002: air_fail_1
-    21300004: air_fail_2
-    21300006: air_fail_3
-    21300008: air_fail_4
-    21300010: air_fail_5
-    21300012: air_fail_6
-    21300014: air_fail_7
-    21300016: air_fail_8
-    21300018: air_fail_9
-    21300020: air_fail_10
-    21300022: air_fail_11
-    21300024: air_fail_12
-    21300026: air_fail_13
-    21300028: air_fail_14
-    21300030: air_fail_15
-    21300032: air_fail_16
-    21300034: air_fail_17
-    21300036: air_fail_18
-    21300038: air_fail_19
+    21300000: dash_0
+    21300002: dash_1
+    21300004: dash_2
+    21300006: dash_3
+    21300008: dash_4
+    21300010: dash_5
+    21300012: dash_6
+    21300014: dash_7
+    21300016: dash_8
+    21300018: dash_9
+    21300020: dash_10
+    21300022: dash_11
+    21300024: dash_12
+    21300026: dash_13
+    21300028: dash_14
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -79,13 +74,13 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
   - buildTarget: Standalone
-    maxTextureSize: 8192
-    textureFormat: 12
+    maxTextureSize: 2048
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
   - buildTarget: WebGL
     maxTextureSize: 2048
     textureFormat: -1
@@ -98,262 +93,197 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: air_fail_0
+      name: dash_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 444
-        width: 348
-        height: 444
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_1
+      name: dash_1
       rect:
         serializedVersion: 2
-        x: 348
-        y: 444
-        width: 348
-        height: 444
+        x: 438
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_2
+      name: dash_2
       rect:
         serializedVersion: 2
-        x: 696
-        y: 444
-        width: 348
-        height: 444
+        x: 876
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_3
+      name: dash_3
       rect:
         serializedVersion: 2
-        x: 1044
-        y: 444
-        width: 348
-        height: 444
+        x: 1314
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_4
+      name: dash_4
       rect:
         serializedVersion: 2
-        x: 1392
-        y: 444
-        width: 348
-        height: 444
+        x: 1752
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_5
+      name: dash_5
       rect:
         serializedVersion: 2
-        x: 1740
-        y: 444
-        width: 348
-        height: 444
+        x: 2190
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_6
+      name: dash_6
       rect:
         serializedVersion: 2
-        x: 2088
-        y: 444
-        width: 348
-        height: 444
+        x: 2628
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_7
+      name: dash_7
       rect:
         serializedVersion: 2
-        x: 2436
-        y: 444
-        width: 348
-        height: 444
+        x: 3066
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_8
+      name: dash_8
       rect:
         serializedVersion: 2
-        x: 2784
-        y: 444
-        width: 348
-        height: 444
+        x: 3504
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_9
+      name: dash_9
       rect:
         serializedVersion: 2
-        x: 3132
-        y: 444
-        width: 348
-        height: 444
+        x: 3942
+        y: 384
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_10
+      name: dash_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 343
-        height: 434
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_11
+      name: dash_11
       rect:
         serializedVersion: 2
-        x: 348
+        x: 438
         y: 0
-        width: 349
-        height: 431
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_12
+      name: dash_12
       rect:
         serializedVersion: 2
-        x: 696
+        x: 876
         y: 0
-        width: 348
-        height: 433
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_13
+      name: dash_13
       rect:
         serializedVersion: 2
-        x: 1044
+        x: 3504
         y: 0
-        width: 348
-        height: 436
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_14
+      name: dash_14
       rect:
         serializedVersion: 2
-        x: 1392
+        x: 3942
         y: 0
-        width: 341
-        height: 428
+        width: 438
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_15
-      rect:
-        serializedVersion: 2
-        x: 1743
-        y: 0
-        width: 344
-        height: 431
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_16
-      rect:
-        serializedVersion: 2
-        x: 2088
-        y: 0
-        width: 343
-        height: 421
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_17
-      rect:
-        serializedVersion: 2
-        x: 2436
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_18
-      rect:
-        serializedVersion: 2
-        x: 2784
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_19
-      rect:
-        serializedVersion: 2
-        x: 3132
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

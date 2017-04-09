@@ -1,29 +1,23 @@
 fileFormatVersion: 2
-guid: c8b04ddcfc581f345be208b1923eba86
-timeCreated: 1491578570
+guid: 8dad04f1b6418ea44951988d9069ec75
+timeCreated: 1491754140
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: air_fail_0
-    21300002: air_fail_1
-    21300004: air_fail_2
-    21300006: air_fail_3
-    21300008: air_fail_4
-    21300010: air_fail_5
-    21300012: air_fail_6
-    21300014: air_fail_7
-    21300016: air_fail_8
-    21300018: air_fail_9
-    21300020: air_fail_10
-    21300022: air_fail_11
-    21300024: air_fail_12
-    21300026: air_fail_13
-    21300028: air_fail_14
-    21300030: air_fail_15
-    21300032: air_fail_16
-    21300034: air_fail_17
-    21300036: air_fail_18
-    21300038: air_fail_19
+    21300000: wall_flip_0
+    21300002: wall_flip_1
+    21300004: wall_flip_2
+    21300006: wall_flip_3
+    21300008: wall_flip_4
+    21300010: wall_flip_5
+    21300012: wall_flip_6
+    21300014: wall_flip_7
+    21300016: wall_flip_8
+    21300018: wall_flip_9
+    21300020: wall_flip_10
+    21300022: wall_flip_11
+    21300024: wall_flip_12
+    21300026: wall_flip_13
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -98,262 +92,184 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: air_fail_0
+      name: wall_flip_0
       rect:
         serializedVersion: 2
         x: 0
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_1
+      name: wall_flip_1
       rect:
         serializedVersion: 2
-        x: 348
+        x: 396
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_2
+      name: wall_flip_2
       rect:
         serializedVersion: 2
-        x: 696
+        x: 792
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_3
+      name: wall_flip_3
       rect:
         serializedVersion: 2
-        x: 1044
+        x: 1188
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_4
+      name: wall_flip_4
       rect:
         serializedVersion: 2
-        x: 1392
+        x: 1584
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_5
+      name: wall_flip_5
       rect:
         serializedVersion: 2
-        x: 1740
+        x: 1980
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_6
+      name: wall_flip_6
       rect:
         serializedVersion: 2
-        x: 2088
+        x: 2376
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_7
+      name: wall_flip_7
       rect:
         serializedVersion: 2
-        x: 2436
+        x: 2772
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_8
+      name: wall_flip_8
       rect:
         serializedVersion: 2
-        x: 2784
+        x: 3168
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_9
+      name: wall_flip_9
       rect:
         serializedVersion: 2
-        x: 3132
+        x: 3564
         y: 444
-        width: 348
+        width: 396
         height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_10
+      name: wall_flip_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 343
+        width: 396
+        height: 429
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wall_flip_11
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 396
         height: 434
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_11
+      name: wall_flip_12
       rect:
         serializedVersion: 2
-        x: 348
+        x: 792
         y: 0
-        width: 349
-        height: 431
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 396
+        height: 439
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: air_fail_12
+      name: wall_flip_13
       rect:
         serializedVersion: 2
-        x: 696
+        x: 1188
         y: 0
-        width: 348
-        height: 433
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_13
-      rect:
-        serializedVersion: 2
-        x: 1044
-        y: 0
-        width: 348
-        height: 436
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_14
-      rect:
-        serializedVersion: 2
-        x: 1392
-        y: 0
-        width: 341
-        height: 428
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_15
-      rect:
-        serializedVersion: 2
-        x: 1743
-        y: 0
-        width: 344
-        height: 431
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_16
-      rect:
-        serializedVersion: 2
-        x: 2088
-        y: 0
-        width: 343
-        height: 421
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_17
-      rect:
-        serializedVersion: 2
-        x: 2436
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_18
-      rect:
-        serializedVersion: 2
-        x: 2784
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: air_fail_19
-      rect:
-        serializedVersion: 2
-        x: 3132
-        y: 0
-        width: 348
-        height: 444
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 395
+        height: 439
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
