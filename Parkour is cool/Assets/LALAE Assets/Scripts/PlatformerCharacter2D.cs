@@ -133,6 +133,7 @@ namespace UnityStandardAssets._2D
             m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.FALL, Fall);
             m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.RUN, FastRun);
             m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.AIR_FAIL, AirFail);
+            m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.ROLL, Roll);
             //Trick
 
 
@@ -156,13 +157,18 @@ namespace UnityStandardAssets._2D
 
             m_FSM.AddTransition(eCharacterState.STAND_UP, eCharacterState.IDLE, Idle);
 
+            //Roll
+
+
             //EXTRA POINTS TRICKS
             m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.TRICK, Trick);
             m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.AIR_TRICK, AirTrick);
             m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.TRICK, Trick);
             m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.AIR_TRICK, AirTrick);
-            // 
-
+            // Roll
+            m_FSM.AddTransition(eCharacterState.ROLL, eCharacterState.SLOW_RUN, SlowRun);
+            // TEST 
+            m_FSM.AddTransition(eCharacterState.ROLL, eCharacterState.FAIL, Fail);
             trickFollow = GameObject.Find("TrickFollow");
 
         }
@@ -207,6 +213,7 @@ namespace UnityStandardAssets._2D
 
                 if (m_airTrick) m_FSM.Advance(eCharacterState.AIR_TRICK);
                 if (m_Rigidbody2D.velocity.y < 0) m_FSM.Advance(eCharacterState.FALL);
+                
             }
 
         }
@@ -341,7 +348,7 @@ namespace UnityStandardAssets._2D
 
 
         }
-        String[] triggers = { "FastRun", "SlowRun", "Fall", "Idle", "Jump", "StartTrick", "Monkey", "AirFail" };
+        String[] triggers = { "FastRun", "SlowRun", "Fall", "Idle", "Jump", "StartTrick", "Monkey", "AirFail","Roll" };
 
 
         public void resetTriggers()
@@ -370,10 +377,11 @@ namespace UnityStandardAssets._2D
         {
             //TO DO add FAIL STATE       
 
-
+            if (m_s) m_FSM.Advance(eCharacterState.ROLL);
 
             resetTriggers();
             m_Anim.SetTrigger("Fall");
+            
 
         }
 
@@ -466,6 +474,13 @@ namespace UnityStandardAssets._2D
             m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
+        void Roll() {
+            resetTriggers();
+            m_Anim.CrossFade("Landing",0);
+            if (m_Grounded) {
+                m_FSM.Advance(eCharacterState.SLOW_RUN);
+            }
+        }
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
