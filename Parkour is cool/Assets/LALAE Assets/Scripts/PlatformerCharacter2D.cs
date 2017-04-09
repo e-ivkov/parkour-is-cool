@@ -482,8 +482,11 @@ namespace UnityStandardAssets._2D
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
+            if (!m_Grounded && collision.gameObject != trickFollow)
+            {
+                m_FSM.Advance(eCharacterState.AIR_FAIL);
 
-            m_FSM.Advance(eCharacterState.AIR_FAIL);
+            }
 
         }
 
