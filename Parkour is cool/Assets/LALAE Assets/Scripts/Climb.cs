@@ -18,7 +18,9 @@ public class Climb : StateMachineBehaviour {
 	
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       PlatformerCharacter2D character = animator.transform.GetComponent<PlatformerCharacter2D>();
-           character.FinishTrick();
+            Vector2 force = new Vector2(character.m_Direction, 0);
+            character.transform.Translate(force);
+            character.FinishTrick();
   }
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
