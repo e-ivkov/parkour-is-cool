@@ -29,7 +29,7 @@ namespace UnityStandardAssets._2D
         }
         public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
         {
-           
+            
         }
 
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -64,6 +64,7 @@ namespace UnityStandardAssets._2D
         private GameObject trickFollow;
 
         public Trick m_FlipTrick;
+        public Trick m_BackFlipTrick;
         public Trick m_MonkeyVaultTrick;
         public Trick m_WallRun;
         public Trick m_WallFlip;
@@ -167,10 +168,12 @@ namespace UnityStandardAssets._2D
             m_FSM.AddTransition(eCharacterState.TRICK, eCharacterState.AIR_TRICK, AirTrick);
             m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.TRICK, Trick);
             m_FSM.AddTransition(eCharacterState.AIR_TRICK, eCharacterState.AIR_TRICK, AirTrick);
+            
             // Roll
             m_FSM.AddTransition(eCharacterState.ROLL, eCharacterState.SLOW_RUN, SlowRun);
             // TEST 
-            m_FSM.AddTransition(eCharacterState.ROLL, eCharacterState.FAIL, Fail);
+            
+            m_FSM.AddTransition(eCharacterState.FALL, eCharacterState.FAIL, Fail);
             trickFollow = GameObject.Find("TrickFollow");
 
         }
@@ -203,7 +206,7 @@ namespace UnityStandardAssets._2D
 
             if (m_Grounded)
             {
-
+                
                 if (!m_AutoRun) m_FSM.Advance(eCharacterState.IDLE);
                 if (m_AutoRun && !m_shift) m_FSM.Advance(eCharacterState.SLOW_RUN);
                 if (m_shift) m_FSM.Advance(eCharacterState.RUN);
@@ -239,6 +242,7 @@ namespace UnityStandardAssets._2D
             {
                 if (colliders[i].gameObject != gameObject && colliders[i].gameObject != GameObject.Find("TrickFollow"))
                     m_Grounded = true;
+                if (m_Grounded && m_Rigidbody2D.velocity.y <= -10 && !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Landing")) m_FSM.Advance(eCharacterState.FAIL);
             }
 
 
@@ -398,8 +402,11 @@ namespace UnityStandardAssets._2D
                 PerformTrick(m_FlipTrick);
                 //Debug.Log("Start flip");
             }
-           
-        
+            else if (Math.Abs(x) > 0 && Math.Sign(x) != m_Direction && !m_InTrick)
+
+            {
+                PerformTrick(m_BackFlipTrick);
+            }
             if (m_TrickCooldown > 0) //trick bonus xp cooldown timer
             {
                 m_TrickCooldown -= Time.deltaTime;
@@ -465,6 +472,7 @@ namespace UnityStandardAssets._2D
             resetTriggers();
             FailTrick();
             m_Anim.CrossFade("FailTrick", 0);
+            m_Direction = -m_Direction;
         }
 
         void AirFail()
@@ -558,7 +566,8 @@ namespace UnityStandardAssets._2D
             m_LevelXP += m_CurrentTrick.m_XP * m_TrickMultipliyer;
             m_TrickMultipliyer *= 2;
             //Debug.Log("End animation");
-            transform.Translate(m_Direction * m_CurrentTrick.m_AfterPositionVector);
+            Vector2 force = new Vector2(m_Direction * m_CurrentTrick.m_AfterPositionVector.x,m_CurrentTrick.m_AfterPositionVector.y);
+            transform.Translate(force);
             resetTriggers();
 
             //SceneView.RepaintAll();
