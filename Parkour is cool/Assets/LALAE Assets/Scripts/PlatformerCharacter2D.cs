@@ -477,9 +477,12 @@ namespace UnityStandardAssets._2D
         void Roll() {
             resetTriggers();
             m_Anim.CrossFade("Landing",0);
-            if (m_Grounded) {
+            if (m_Grounded)
+            {
                 m_FSM.Advance(eCharacterState.SLOW_RUN);
             }
+           
+           
         }
 
         public void OnTriggerEnter2D(Collider2D collision)
@@ -497,8 +500,11 @@ namespace UnityStandardAssets._2D
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
+            if (!m_Grounded && collision.gameObject != trickFollow)
+            {
+                m_FSM.Advance(eCharacterState.AIR_FAIL);
 
-            m_FSM.Advance(eCharacterState.AIR_FAIL);
+            }
 
         }
 
