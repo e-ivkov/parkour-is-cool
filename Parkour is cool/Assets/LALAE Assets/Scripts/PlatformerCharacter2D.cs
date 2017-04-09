@@ -242,7 +242,8 @@ namespace UnityStandardAssets._2D
             {
                 if (colliders[i].gameObject != gameObject && colliders[i].gameObject != GameObject.Find("TrickFollow"))
                     m_Grounded = true;
-                if (m_Grounded && m_Rigidbody2D.velocity.y <= -10 && !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Landing")) m_FSM.Advance(eCharacterState.FAIL);
+                if (m_Grounded && m_Rigidbody2D.velocity.y <= -10 && !m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+                    m_FSM.Advance(eCharacterState.FAIL);
             }
 
 
@@ -458,7 +459,9 @@ namespace UnityStandardAssets._2D
                     else
                         m_fail = true;
                     break;
-
+                case "Floor":
+                    m_FSM.Advance(eCharacterState.RUN);
+                    break;
                 default:
                     m_fail = true;
                     break;
