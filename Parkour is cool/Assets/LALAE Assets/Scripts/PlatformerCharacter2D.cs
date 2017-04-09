@@ -469,7 +469,7 @@ namespace UnityStandardAssets._2D
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!m_InTrick)
+            if (!m_InTrick && collision.tag != "QuestGiver" && collision.tag != "QuestItem")
             {
                 m_TrickCollider = collision;
                 m_FSM.Advance(eCharacterState.TRICK);
@@ -574,5 +574,68 @@ namespace UnityStandardAssets._2D
             theScale.x *= -1;
             transform.localScale = theScale;
         }
+
+        // Quest part \\
+
+        private List<Quest> _activeQuests = new List<Quest>();
+        private List<Quest> _finishedQuests = new List<Quest>();
+
+        public List<Quest> ActiveQuests
+        {
+            get
+            {
+                return _activeQuests;
+            }
+        }
+        public List<Quest> FinishedQuests
+        {
+            get
+            {
+                return _finishedQuests;
+            }
+        }
+
+        public Quest FindQuest(List<Quest> quests, string name)
+        {
+            return quests.Find(quest => quest.Name == name);
+        }
+        public Quest FindQuest(List<Quest> quests, Predicate<Quest> pattern)
+        {
+            return quests.Find(pattern);
+        }
+
+
+        public void AddQuest(Quest quest)
+        {
+            if (FindQuest(_activeQuests, quest.Name) == null && FindQuest(_finishedQuests, quest.Name) == null)
+                ActiveQuests.Add(quest);
+        }
+        public void FinishQuest(Quest quest)
+        {
+            FinishedQuests.Add(ActiveQuests.Find(_quest => _quest == quest));
+            ActiveQuests.Remove(quest);
+            if (quest.Reward != null)
+                quest.Reward.Accept(this);
+        }
+        public void AbortQuest(Quest quest)
+        {
+            FinishedQuests.Add(ActiveQuests.Find(_quest => _quest == quest));
+            ActiveQuests.Remove(quest);
+        }
+
+        // Quest part end \\
+
+        public int Exp
+        {
+            get
+            {
+                return m_LevelXP;
+            }
+            set
+            {
+                m_LevelXP = value;
+            }
+        }
+
     }
 }
