@@ -31,8 +31,9 @@ namespace UnityStandardAssets._2D
                 animator.CrossFade("Wall Climb", 0);
             }
             else
-            {
-
+            {   
+                Vector2 force = new Vector2(-character.m_Direction,0);
+                character.transform.Translate(force);
                 character.FinishTrick();
             }
         }

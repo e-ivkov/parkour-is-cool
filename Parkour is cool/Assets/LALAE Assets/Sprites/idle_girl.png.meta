@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 912ff2faad13ee547846fb76cdb84e00
 timeCreated: 1491758589
+=======
+guid: e969b625af26c8342b9d2d7bab37aa2d
+timeCreated: 1491756262
+>>>>>>> tricks
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -36,6 +41,17 @@ TextureImporter:
     21300058: idle_girl_29
     21300060: idle_girl_30
     21300062: idle_girl_31
+<<<<<<< HEAD
+=======
+    21300064: idle_girl_32
+    21300066: idle_girl_33
+    21300068: idle_girl_34
+    21300070: idle_girl_35
+    21300072: idle_girl_36
+    21300074: idle_girl_37
+    21300076: idle_girl_38
+    21300078: idle_girl_39
+>>>>>>> tricks
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
